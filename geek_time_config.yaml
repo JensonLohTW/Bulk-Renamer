@@ -1,0 +1,17 @@
+defaults:
+  dry_run: false           # 建议先试运行（不实际改名）确认效果
+  verbose: true            # 显示每条重命名记录
+  confirm_before_run: true # 执行前要求确认
+  mac_clean: true          # 执行前清除 macOS ._ 隐藏文件
+
+tasks:
+  - name: "清理 AI 相关课程目录"
+    directories:
+      - "/Volumes/JeeShyangT7/學習/Python/AI/AI-黑马-AI大模型第三期"
+    patterns:
+      - "[平价资源666 root.com](微AG110360)"
+      - "[平价资源666root.com](微AG 110360)"
+      - "[平价资源666 root.com](微AG 110360)"
+      - "[平价资源666root.com](微AG110360)"
+      - "[平价资源666 root.com](微AG110 360)"
+    recursive: true

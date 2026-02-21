@@ -31,9 +31,13 @@ Bulk Renamer 是一個高效、安全的批次檔案重新命名工具，使用 
 
 ### 指令參數說明
 
-* `target_dir` (必選)：要遞迴處理的目標目錄路徑。
+您可以透過**單一目標目錄**或使用**自訂配置檔**兩種方式來執行。
+
+#### 單目錄模式
+* `target_dir` (單目錄必選)：要遞迴處理的目標目錄路徑。
 * `--remove` (可選)：要從檔名中移除的字串（預設會移除海量資源相關字串）。
 * `-n`, `--dry-run` (可選)：試運行模式，不會實際更動檔案，僅作變更預覽。
+* `-q`, `--quiet` (可選)：抑制詳細輸出。
 
 **範例**：
 
@@ -46,6 +50,29 @@ Bulk Renamer 是一個高效、安全的批次檔案重新命名工具，使用 
 ```bash
 ./scripts/start.sh /path/to/target/folder --remove "要刪除的文字"
 ```
+
+#### 配置檔模式
+透過撰寫 YAML 配置檔，您可以一次設定多個目錄、不同要移除的字串，甚至定義多組任務。
+
+* `--config` (配置檔必選)：指定 YAML 配置檔的路徑。
+* 命令列傳遞的 `--dry-run` 與 `--quiet` 參數優先級高於配置檔內的設定。
+
+**範例**：
+
+1. 建立配置檔 (您可以複製 `config.example.yaml` 來修改)：
+   ```bash
+   cp config.example.yaml config.yaml
+   ```
+
+2. 根據配置檔進行試運行 (確保安全)：
+   ```bash
+   ./scripts/start.sh --config config.yaml --dry-run
+   ```
+
+3. 確認無誤後正式執行：
+   ```bash
+   ./scripts/start.sh --config config.yaml
+   ```
 
 ## 開發與測試
 
