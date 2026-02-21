@@ -1,0 +1,26 @@
+# Bulk Renamer 配置文件范例
+# 复制为 config.yaml 并按需修改：
+#   cp config.example.yaml config.yaml
+
+defaults:
+  dry_run: false           # 试运行（不实际改名）
+  verbose: true            # 显示每条重命名记录
+  confirm_before_run: true # 执行前要求确认
+  mac_clean: true          # 执行前清除 macOS ._ 隐藏文件
+
+tasks:
+  - name: "清理下载目录"
+    directories:
+      - "~/Downloads"
+      - "~/Desktop"
+    patterns:
+      - "【海量资源：666root.com微AG110360】"
+      - "【其他广告字串】"
+    recursive: true
+
+  - name: "清理影片目录"
+    directories:
+      - "~/Movies"
+    patterns:
+      - "要删除的字串"
+    recursive: false
