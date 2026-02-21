@@ -54,6 +54,12 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         help="試運行模式，不會實際更動檔案，但會顯示變更預覽"
     )
     
+    parser.add_argument(
+        "--no-mac-clean",
+        action="store_true",
+        help="停用 macOS 自動清除 ._ 隱藏資源檔案"
+    )
+    
     # 若沒有任何參數（sys.argv只有腳本名稱），列印輔助訊息並退出
     if not argv and len(sys.argv) == 1:
         parser.print_help(sys.stderr)
@@ -63,6 +69,11 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     
     if args.dry_run:
         print("\n--- 注意：現在是在【試運行模式 (Dry Run)】下，檔案不會被真實修改 ---\n")
+        
+    # 高內聚低耦合：在執行重命名前，作為準備階段清理 OS 垃圾，不侵入核心邏輯
+    if not args.no_mac_clean:
+        from .utils import clean_macos_metadata
+        clean_macos_metadata(args.target_dir, dry_run=args.dry_run)
     
     renamer = BulkRenamer(
         target_dir=args.target_dir, 
